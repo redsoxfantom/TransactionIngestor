@@ -33,9 +33,33 @@ namespace TransactionIngestor.Utilities
         {
             foreach(var record in Producer.GetRecords())
             {
+                bool foundConverter = false;
+                foreach(var converter in loadedConverters)
+                {
+                    if(converter.TransactionRegex.IsMatch(record.RawTransactionType))
+                    {
+                        record.ParsedTransactionType = converter.ParsedTransaction;
+                        foundConverter = true;
+                        break;
+                    }
+                }
 
+                if(!foundConverter)
+                {
+                    var updatedConfigRecord = UpdateNeededMethod(record);
+                    loadedConverters.Add(new RawConverterData()
+                    {
+                        TransactionRegex = updatedConfigRecord.Item2,
+                        ParsedTransaction = updatedConfigRecord.Item1.ParsedTransactionType
+                    });
+                    RawConverterData.WriteConfig(loadedConverters);
+                    yield return updatedConfigRecord.Item1;
+                }
+                else
+                {
+                    yield return record;
+                }
             }
-            return null;
         }
 
         private class RawConverterData
