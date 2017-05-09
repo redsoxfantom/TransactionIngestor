@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using TransactionIngestor.Data;
 using TransactionIngestor.Interfaces;
 
-namespace TransactionIngestor.Utilities
+namespace TransactionIngestor.Input
 {
     public class RawConverter : IDataRecordProducer, IDataRecordConsumer
     {

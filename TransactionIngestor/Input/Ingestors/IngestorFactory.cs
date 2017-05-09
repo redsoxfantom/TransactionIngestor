@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TransactionIngestor.Enums;
-using TransactionIngestor.Exceptions;
-using TransactionIngestor.Interfaces;
+﻿using TransactionIngestor.Enums;
+using TransactionIngestor.Input.Ingestors.Exceptions;
 
-namespace TransactionIngestor.Ingestors
+namespace TransactionIngestor.Input.Ingestors
 {
     public static class IngestorFactory
     {

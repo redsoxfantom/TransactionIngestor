@@ -57,21 +57,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Combiners\CombinerFactory.cs" />
+    <Compile Include="Output\Combiners\CombinerFactory.cs" />
     <Compile Include="Data\DataRecord.cs" />
-    <Compile Include="Exceptions\CombinerException.cs" />
-    <Compile Include="Exceptions\IngestorException.cs" />
-    <Compile Include="Ingestors\IngestorFactory.cs" />
-    <Compile Include="Ingestors\WellsFargoCsvIngestor.cs" />
-    <Compile Include="Interfaces\ICombiner.cs" />
+    <Compile Include="Output\Combiners\Exceptions\CombinerException.cs" />
+    <Compile Include="Input\Ingestors\Exceptions\IngestorException.cs" />
+    <Compile Include="Input\Ingestors\IngestorFactory.cs" />
+    <Compile Include="Input\Ingestors\WellsFargoCsvIngestor.cs" />
+    <Compile Include="Output\Combiners\ICombiner.cs" />
     <Compile Include="Interfaces\IDataRecordConsumer.cs" />
     <Compile Include="Interfaces\IDataRecordProducer.cs" />
-    <Compile Include="Interfaces\IIngestor.cs" />
+    <Compile Include="Input\Ingestors\IIngestor.cs" />
     <Compile Include="Enums\InputType.cs" />
     <Compile Include="Enums\OutputType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TransactionIngestorManager.cs" />
-    <Compile Include="Utilities\RawConverter.cs" />
+    <Compile Include="Input\RawConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

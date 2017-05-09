@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TransactionIngestor.Interfaces
+namespace TransactionIngestor.Combiners
 {
-    public interface ICombiner: IDataRecordConsumer, IDataRecordProducer
+    public interface ICombiner
     {
         String FileToCombineWith { set; }
     }

@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TransactionIngestor.Exceptions
+namespace TransactionIngestor.Combiners.Exceptions
 {
     public class CombinerException : Exception
     {

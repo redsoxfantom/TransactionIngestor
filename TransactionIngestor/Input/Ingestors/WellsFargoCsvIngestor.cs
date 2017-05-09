@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using TransactionIngestor.Data;
 using TransactionIngestor.Interfaces;
 
-namespace TransactionIngestor.Ingestors
+namespace TransactionIngestor.Input.Ingestors
 {
     public class WellsFargoCsvIngestor : IIngestor
     {
