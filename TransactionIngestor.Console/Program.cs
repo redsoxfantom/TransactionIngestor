@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TransactionIngestor.Enums;
 using TransactionIngestor.Interfaces;
 
 namespace TransactionIngestor.Console

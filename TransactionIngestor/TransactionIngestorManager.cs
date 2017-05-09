@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TransactionIngestor.Interfaces
+namespace TransactionIngestor
 {
-    public enum OutputType
+    public class TransactionIngestorManager
     {
-        STANDARD_FORMAT_CSV
     }
 }

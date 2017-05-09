@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace TransactionIngestor.Interfaces
 {
-    public enum InputType
+    public interface IDataRecordConsumer
     {
-        STANDARD_FORMAT_CSV,
-        WELLS_FARGO_CSV
+        IDataRecordProducer Producer { set; }
     }
 }

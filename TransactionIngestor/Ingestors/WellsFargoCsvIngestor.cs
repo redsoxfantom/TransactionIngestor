@@ -13,9 +13,15 @@ namespace TransactionIngestor.Ingestors
 {
     public class WellsFargoCsvIngestor : IIngestor
     {
-        public IEnumerable<DataRecord> ReadInputFile(string filename)
+        public string InputFileName
         {
-            using (var csv = new CsvReader(File.OpenText(filename)))
+            set;
+            private get;
+        }
+
+        public IEnumerable<DataRecord> GetRecords()
+        {
+            using (var csv = new CsvReader(File.OpenText(InputFileName)))
             {
                 while(csv.Read())
                 {

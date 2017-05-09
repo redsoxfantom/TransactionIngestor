@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TransactionIngestor.Enums;
 using TransactionIngestor.Exceptions;
 using TransactionIngestor.Interfaces;
 

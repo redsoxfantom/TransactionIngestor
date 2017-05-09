@@ -61,10 +61,13 @@
     <Compile Include="Exceptions\IngestorException.cs" />
     <Compile Include="Ingestors\IngestorFactory.cs" />
     <Compile Include="Ingestors\WellsFargoCsvIngestor.cs" />
+    <Compile Include="Interfaces\IDataRecordConsumer.cs" />
+    <Compile Include="Interfaces\IDataRecordProducer.cs" />
     <Compile Include="Interfaces\IIngestor.cs" />
-    <Compile Include="Interfaces\InputType.cs" />
-    <Compile Include="Interfaces\OutputType.cs" />
+    <Compile Include="Enums\InputType.cs" />
+    <Compile Include="Enums\OutputType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TransactionIngestorManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
