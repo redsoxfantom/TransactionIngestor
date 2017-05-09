@@ -71,6 +71,7 @@
     <Compile Include="Enums\OutputType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TransactionIngestorManager.cs" />
+    <Compile Include="Utilities\RawConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
