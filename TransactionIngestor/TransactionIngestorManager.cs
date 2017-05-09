@@ -8,5 +8,9 @@ namespace TransactionIngestor
 {
     public class TransactionIngestorManager
     {
+        public TransactionIngestorManager()
+        {
+
+        }
     }
 }

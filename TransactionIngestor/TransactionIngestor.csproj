@@ -57,10 +57,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Combiners\CombinerFactory.cs" />
     <Compile Include="Data\DataRecord.cs" />
+    <Compile Include="Exceptions\CombinerException.cs" />
     <Compile Include="Exceptions\IngestorException.cs" />
     <Compile Include="Ingestors\IngestorFactory.cs" />
     <Compile Include="Ingestors\WellsFargoCsvIngestor.cs" />
+    <Compile Include="Interfaces\ICombiner.cs" />
     <Compile Include="Interfaces\IDataRecordConsumer.cs" />
     <Compile Include="Interfaces\IDataRecordProducer.cs" />
     <Compile Include="Interfaces\IIngestor.cs" />
