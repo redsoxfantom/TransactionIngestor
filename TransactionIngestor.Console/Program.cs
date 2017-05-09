@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TransactionIngestor.Interfaces;
 
-namespace TransactionIngestor
+namespace TransactionIngestor.Console
 {
     class Program
     {
@@ -21,13 +21,13 @@ namespace TransactionIngestor
             BasicConfigurator.Configure();
 
             var options = new Options();
-            if(CommandLine.Parser.Default.ParseArguments(args,options))
+            if (CommandLine.Parser.Default.ParseArguments(args, options))
             {
-                if(options.OutputFile == null)
+                if (options.OutputFile == null)
                 {
                     options.OutputFile = Path.Combine(Directory.GetCurrentDirectory(), "output");
                 }
-                log.InfoFormat("Processing input file {0} as type {1} into output file {2} as type {3}", 
+                log.InfoFormat("Processing input file {0} as type {1} into output file {2} as type {3}",
                     options.InputFile, options.InputType, options.OutputFile, options.OutputType);
             }
             else
@@ -43,25 +43,25 @@ namespace TransactionIngestor
 
     class Options
     {
-        [Option("--input",Required =true,HelpText ="File to be read")]
+        [Option("--input", Required = true, HelpText = "File to be read")]
         public String InputFile { get; set; }
 
-        [Option("--inputType",Required=true,HelpText ="Type of input file this is")]
+        [Option("--inputType", Required = true, HelpText = "Type of input file this is")]
         public InputType InputType { get; set; }
 
-        [Option("--output",Required = false, DefaultValue = null,HelpText ="The path to the output file this should tool should generate. Defaults to <current directory>/output")]
+        [Option("--output", Required = false, DefaultValue = null, HelpText = "The path to the output file this should tool should generate. Defaults to <current directory>/output")]
         public String OutputFile { get; set; }
 
-        [Option("--combine",Required =false,DefaultValue =true,HelpText ="If the output file already exists, deterimines whether or not we should add this file to it or just wipe it out")]
+        [Option("--combine", Required = false, DefaultValue = true, HelpText = "If the output file already exists, deterimines whether or not we should add this file to it or just wipe it out")]
         public Boolean AppendOutput { get; set; }
 
-        [Option("--outputType",Required =false,DefaultValue =OutputType.STANDARD_FORMAT_CSV,HelpText ="The type of output file this ingestor should create")]
+        [Option("--outputType", Required = false, DefaultValue = OutputType.STANDARD_FORMAT_CSV, HelpText = "The type of output file this ingestor should create")]
         public OutputType OutputType { get; set; }
 
         [HelpOption]
         public String Usage()
         {
-            return HelpText.AutoBuild(this, (HelpText current) => 
+            return HelpText.AutoBuild(this, (HelpText current) =>
                 HelpText.DefaultParsingErrorsHandler(this, current));
         }
     }
