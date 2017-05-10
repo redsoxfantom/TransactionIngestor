@@ -1,4 +1,6 @@
-﻿using TransactionIngestor.Data;
+﻿using System;
+using System.Collections.Generic;
+using TransactionIngestor.Data;
 using TransactionIngestor.Enums;
 using TransactionIngestor.Interfaces;
 using TransactionIngestor.Output.Combiners;
@@ -7,7 +9,7 @@ using TransactionIngestor.Output.Writers;
 
 namespace TransactionIngestor.Output
 {
-    public class OutputManager : IDataRecordConsumer
+    public class OutputManager : IDataRecordConsumer, IDataRecordProducer
     {
         ICombiner<object> mCombiner = null;
         ITransformer<object> mTransformer = null;
@@ -33,9 +35,23 @@ namespace TransactionIngestor.Output
             {
                 mCombiner = new PassThruCombiner();
             }
-            
+
+            mTransformer.Producer = this;
             mCombiner.Producer = mTransformer;
             mWriter.Producer = mCombiner;
+        }
+
+        public IEnumerable<DataRecord> GetRecords()
+        {
+            foreach(var record in Producer.GetRecords())
+            {
+                yield return record;
+            }
+        }
+
+        public void Start()
+        {
+            mWriter.Start();
         }
     }
 }

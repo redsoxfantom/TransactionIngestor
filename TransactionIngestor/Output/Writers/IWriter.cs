@@ -10,5 +10,7 @@ namespace TransactionIngestor.Output.Writers
     public interface IWriter<T> : IDataConsumer<T>
     {
         String FileToWriteTo { set; }
+
+        void Start();
     }
 }
