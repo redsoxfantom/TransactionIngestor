@@ -7,12 +7,16 @@ using TransactionIngestor.Combiners;
 using TransactionIngestor.Data;
 using TransactionIngestor.Enums;
 using TransactionIngestor.Interfaces;
+using TransactionIngestor.Output.Transformers;
+using TransactionIngestor.Output.Writers;
 
 namespace TransactionIngestor.Output
 {
     public class OutputManager : IDataRecordConsumer
     {
         ICombiner<object> mCombiner;
+        ITransformer<object> mTransformer;
+        IWriter<object> mWriter;
 
         public IDataProducer<DataRecord> Producer
         {

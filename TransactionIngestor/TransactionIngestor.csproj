@@ -77,6 +77,9 @@
     <Compile Include="Output\Transformers\ITransformer.cs" />
     <Compile Include="Output\Transformers\PassThruTransformer.cs" />
     <Compile Include="Output\Transformers\TransformerFactory.cs" />
+    <Compile Include="Output\Writers\Exceptions\WriterException.cs" />
+    <Compile Include="Output\Writers\IWriter.cs" />
+    <Compile Include="Output\Writers\WriterFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TransactionIngestorManager.cs" />
     <Compile Include="Input\RawConverter.cs" />
@@ -84,8 +87,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Output\Writers\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
