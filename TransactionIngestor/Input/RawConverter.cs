@@ -17,7 +17,7 @@ namespace TransactionIngestor.Input
         Func<DataRecord, Tuple<DataRecord, Regex>> UpdateNeededMethod;
         private List<RawConverterData> loadedConverters;
 
-        public IDataRecordProducer Producer
+        public IDataProducer<DataRecord> Producer
         {
             set;
             private get;
