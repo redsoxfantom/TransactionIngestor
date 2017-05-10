@@ -5,7 +5,7 @@ namespace TransactionIngestor.Combiners
 {
     public class CombinerFactory
     {
-        public static ICombiner CreateCombiner(OutputType combinerType)
+        public static ICombiner<object> CreateCombiner(OutputType combinerType)
         {
             switch(combinerType)
             {

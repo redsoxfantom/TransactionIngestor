@@ -7,7 +7,7 @@ using TransactionIngestor.Data;
 
 namespace TransactionIngestor.Interfaces
 {
-    public interface IDataProducer<T>
+    public interface IDataProducer<out T>
     {
         IEnumerable<T> GetRecords();
     }
