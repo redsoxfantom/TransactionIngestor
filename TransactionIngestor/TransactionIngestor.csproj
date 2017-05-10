@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Input\InputManager.cs" />
+    <Compile Include="Input\RawConverterData.cs" />
     <Compile Include="Output\Combiners\CombinerFactory.cs" />
     <Compile Include="Data\DataRecord.cs" />
     <Compile Include="Output\Combiners\Exceptions\CombinerException.cs" />
