@@ -12,6 +12,7 @@ namespace TransactionIngestor.Output.Combiners
         public string FileToCombineWith
         {
             set;
+            private get;
         }
 
         public IDataProducer<object> Producer
