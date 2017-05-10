@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TransactionIngestor.Interfaces;
 
-namespace TransactionIngestor.Combiners
+namespace TransactionIngestor.Output.Combiners
 {
     public interface ICombiner<T> : IDataConsumer<T>, IDataProducer<T>
     {

@@ -1,7 +1,7 @@
-﻿using TransactionIngestor.Combiners.Exceptions;
-using TransactionIngestor.Enums;
+﻿using TransactionIngestor.Enums;
+using TransactionIngestor.Output.Combiners.Exceptions;
 
-namespace TransactionIngestor.Combiners
+namespace TransactionIngestor.Output.Combiners
 {
     public class CombinerFactory
     {

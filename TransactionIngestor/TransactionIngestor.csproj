@@ -73,6 +73,7 @@
     <Compile Include="Input\Ingestors\IIngestor.cs" />
     <Compile Include="Enums\InputType.cs" />
     <Compile Include="Enums\OutputType.cs" />
+    <Compile Include="Output\Combiners\PassThruCombiner.cs" />
     <Compile Include="Output\OutputManager.cs" />
     <Compile Include="Output\Transformers\ITransformer.cs" />
     <Compile Include="Output\Transformers\PassThruTransformer.cs" />
