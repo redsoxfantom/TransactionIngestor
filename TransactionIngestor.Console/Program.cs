@@ -7,7 +7,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using TransactionIngestor.Data;
 using TransactionIngestor.Enums;
 using TransactionIngestor.Interfaces;
 
@@ -30,6 +32,11 @@ namespace TransactionIngestor.Console
                 }
                 log.InfoFormat("Processing input file {0} as type {1} into output file {2} as type {3}",
                     options.InputFile, options.InputType, options.OutputFile, options.OutputType);
+
+                TransactionIngestorManager mgr = new TransactionIngestorManager(PromptForConversion, options.InputType, 
+                    options.InputFile, options.OutputType, options.OutputFile, options.AppendOutput);
+
+                mgr.Process();
             }
             else
             {
@@ -40,23 +47,29 @@ namespace TransactionIngestor.Console
             Environment.ExitCode = 0;
             log.Info("Done!");
         }
+
+        private static Tuple<DataRecord,Regex> PromptForConversion(DataRecord record)
+        {
+            record.ParsedTransactionType = record.RawTransactionType;
+            return new Tuple<DataRecord, Regex>(record, new Regex(record.RawTransactionType, RegexOptions.Compiled));
+        }
     }
 
     class Options
     {
-        [Option("--input", Required = true, HelpText = "File to be read")]
+        [Option("input", Required = true, HelpText = "File to be read")]
         public String InputFile { get; set; }
 
-        [Option("--inputType", Required = true, HelpText = "Type of input file this is")]
+        [Option("inputType", Required = true, HelpText = "Type of input file this is")]
         public InputType InputType { get; set; }
 
-        [Option("--output", Required = false, DefaultValue = null, HelpText = "The path to the output file this should tool should generate. Defaults to <current directory>/output")]
+        [Option("output", Required = false, DefaultValue = null, HelpText = "The path to the output file this should tool should generate. Defaults to <current directory>/output")]
         public String OutputFile { get; set; }
 
-        [Option("--combine", Required = false, DefaultValue = true, HelpText = "If the output file already exists, deterimines whether or not we should add this file to it or just wipe it out")]
+        [Option("combine", Required = false, DefaultValue = true, HelpText = "If the output file already exists, deterimines whether or not we should add this file to it or just wipe it out")]
         public Boolean AppendOutput { get; set; }
 
-        [Option("--outputType", Required = false, DefaultValue = OutputType.STANDARD_FORMAT_CSV, HelpText = "The type of output file this ingestor should create")]
+        [Option("outputType", Required = false, DefaultValue = OutputType.STANDARD_FORMAT_JSON, HelpText = "The type of output file this ingestor should create")]
         public OutputType OutputType { get; set; }
 
         [HelpOption]

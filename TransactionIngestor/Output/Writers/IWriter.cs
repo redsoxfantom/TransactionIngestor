@@ -7,7 +7,7 @@ using TransactionIngestor.Interfaces;
 
 namespace TransactionIngestor.Output.Writers
 {
-    public interface IWriter<T> : IDataConsumer<T>
+    public interface IWriter : IDataConsumer<object>
     {
         String FileToWriteTo { set; }
 

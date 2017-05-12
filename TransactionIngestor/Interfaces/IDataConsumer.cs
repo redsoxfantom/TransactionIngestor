@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TransactionIngestor.Interfaces
 {
-    public interface IDataConsumer<in T>
+    public interface IDataConsumer<T>
     {
         IDataProducer<T> Producer { set; }
     }

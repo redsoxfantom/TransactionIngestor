@@ -9,7 +9,7 @@ namespace TransactionIngestor.Output.Transformers
 {
     public class TransformerFactory
     {
-        public static ITransformer<object> CreateTransformer(OutputType outputType)
+        public static ITransformer CreateTransformer(OutputType outputType)
         {
             switch(outputType)
             {

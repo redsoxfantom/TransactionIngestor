@@ -12,8 +12,8 @@ namespace TransactionIngestor.Output
     public class OutputManager : IDataRecordConsumer, IDataRecordProducer
     {
         ICombiner<object> mCombiner = null;
-        ITransformer<object> mTransformer = null;
-        IWriter<object> mWriter = null;
+        ITransformer mTransformer = null;
+        IWriter mWriter = null;
 
         public IDataProducer<DataRecord> Producer
         {

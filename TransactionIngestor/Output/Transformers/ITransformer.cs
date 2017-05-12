@@ -7,7 +7,7 @@ using TransactionIngestor.Interfaces;
 
 namespace TransactionIngestor.Output.Transformers
 {
-    public interface ITransformer<out T> : IDataRecordConsumer, IDataProducer<T>
+    public interface ITransformer : IDataRecordConsumer, IDataProducer<object>
     {
     }
 }

@@ -8,6 +8,6 @@ namespace TransactionIngestor.Enums
 {
     public enum OutputType
     {
-        STANDARD_FORMAT_CSV
+        STANDARD_FORMAT_JSON
     }
 }

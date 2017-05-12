@@ -8,7 +8,7 @@ namespace TransactionIngestor.Enums
 {
     public enum InputType
     {
-        STANDARD_FORMAT_CSV,
+        STANDARD_FORMAT_JSON,
         WELLS_FARGO_CSV
     }
 }

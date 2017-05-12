@@ -80,6 +80,7 @@
     <Compile Include="Output\Transformers\TransformerFactory.cs" />
     <Compile Include="Output\Writers\Exceptions\WriterException.cs" />
     <Compile Include="Output\Writers\IWriter.cs" />
+    <Compile Include="Output\Writers\StdFmtJsonWriter.cs" />
     <Compile Include="Output\Writers\WriterFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TransactionIngestorManager.cs" />

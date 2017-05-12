@@ -8,7 +8,7 @@ using TransactionIngestor.Interfaces;
 
 namespace TransactionIngestor.Output.Transformers
 {
-    public class PassThruTransformer : ITransformer<DataRecord>
+    public class PassThruTransformer : ITransformer
     {
         public IDataProducer<DataRecord> Producer
         {
@@ -16,7 +16,7 @@ namespace TransactionIngestor.Output.Transformers
             private get;
         }
 
-        public IEnumerable<DataRecord> GetRecords()
+        public IEnumerable<object> GetRecords()
         {
             foreach(var record in Producer.GetRecords())
             {
