@@ -39,26 +39,33 @@ namespace TransactionIngestor.Input
             foreach(var record in Producer.GetRecords())
             {
                 bool foundConverter = false;
-                foreach(var converter in loadedConverters)
+                if (String.IsNullOrEmpty(record.ParsedTransactionType))
                 {
-                    if(converter.TransactionRegex.IsMatch(record.RawTransactionType))
+                    foreach (var converter in loadedConverters)
                     {
-                        record.ParsedTransactionType = converter.ParsedTransaction;
-                        foundConverter = true;
-                        break;
+                        if (converter.TransactionRegex.IsMatch(record.RawTransactionType))
+                        {
+                            record.ParsedTransactionType = converter.ParsedTransaction;
+                            foundConverter = true;
+                            break;
+                        }
                     }
-                }
 
-                if(!foundConverter)
-                {
-                    var updatedConfigRecord = UpdateNeededMethod(record);
-                    loadedConverters.Add(new RawConverterData()
+                    if (!foundConverter)
                     {
-                        TransactionRegex = updatedConfigRecord.Item2,
-                        ParsedTransaction = updatedConfigRecord.Item1.ParsedTransactionType
-                    });
-                    RawConverterData.WriteConfig(loadedConverters);
-                    yield return updatedConfigRecord.Item1;
+                        var updatedConfigRecord = UpdateNeededMethod(record);
+                        loadedConverters.Add(new RawConverterData()
+                        {
+                            TransactionRegex = updatedConfigRecord.Item2,
+                            ParsedTransaction = updatedConfigRecord.Item1.ParsedTransactionType
+                        });
+                        RawConverterData.WriteConfig(loadedConverters);
+                        yield return updatedConfigRecord.Item1;
+                    }
+                    else
+                    {
+                        yield return record;
+                    }
                 }
                 else
                 {
