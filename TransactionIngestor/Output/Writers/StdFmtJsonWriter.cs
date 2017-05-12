@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,7 +26,16 @@ namespace TransactionIngestor.Output.Writers
 
         public void Start()
         {
+            JsonSerializer ser = new JsonSerializer();
 
+            using (StreamWriter writer = new StreamWriter(FileToWriteTo))
+            using (JsonWriter jsonWriter = new JsonTextWriter(writer))
+            {
+                foreach (DataRecord record in Producer.GetRecords())
+                {
+                    ser.Serialize(jsonWriter, record);
+                }
+            }
         }
     }
 }

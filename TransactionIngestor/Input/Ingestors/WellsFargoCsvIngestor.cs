@@ -25,11 +25,15 @@ namespace TransactionIngestor.Input.Ingestors
             {
                 while(csv.Read())
                 {
-                    var record = csv.GetRecord<WellsFargoCsv>();
+                    var record = new WellsFargoCsv();
+                    record.Date = csv.GetField<string>(0);
+                    record.Amt = csv.GetField<decimal>(1);
+                    record.Desc = csv.GetField<String>(4);
+
                     var dataRecord = new DataRecord()
                     {
                         RawTransactionType = record.Desc,
-                        TransactionAmount = decimal.Parse(record.Amt),
+                        TransactionAmount = record.Amt,
                         TransactionDate = DateTime.ParseExact(record.Date, "d", CultureInfo.InvariantCulture)
                     };
 
@@ -41,9 +45,7 @@ namespace TransactionIngestor.Input.Ingestors
         class WellsFargoCsv
         {
             public String Date { get; set; }
-            public String Amt { get; set; }
-            public String Asterisk { get; set; }
-            public String Empty { get; set; }
+            public decimal Amt { get; set; }
             public String Desc { get; set; }
         }
     }

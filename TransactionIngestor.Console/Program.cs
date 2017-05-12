@@ -34,7 +34,7 @@ namespace TransactionIngestor.Console
                     options.InputFile, options.InputType, options.OutputFile, options.OutputType);
 
                 TransactionIngestorManager mgr = new TransactionIngestorManager(PromptForConversion, options.InputType, 
-                    options.InputFile, options.OutputType, options.OutputFile, options.AppendOutput);
+                    options.InputFile, options.OutputType, options.OutputFile, options.Combine);
 
                 mgr.Process();
             }
@@ -66,8 +66,8 @@ namespace TransactionIngestor.Console
         [Option("output", Required = false, DefaultValue = null, HelpText = "The path to the output file this should tool should generate. Defaults to <current directory>/output")]
         public String OutputFile { get; set; }
 
-        [Option("combine", Required = false, DefaultValue = true, HelpText = "If the output file already exists, deterimines whether or not we should add this file to it or just wipe it out")]
-        public Boolean AppendOutput { get; set; }
+        [Option("combine", Required = false, DefaultValue = false, HelpText = "If the output file already exists, deterimines whether or not we should add this file to it or just wipe it out")]
+        public Boolean Combine { get; set; }
 
         [Option("outputType", Required = false, DefaultValue = OutputType.STANDARD_FORMAT_JSON, HelpText = "The type of output file this ingestor should create")]
         public OutputType OutputType { get; set; }
