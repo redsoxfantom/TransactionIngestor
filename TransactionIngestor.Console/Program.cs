@@ -50,7 +50,7 @@ namespace TransactionIngestor.Console
 
         private static Tuple<DataRecord,Regex> PromptForConversion(DataRecord record)
         {
-            System.Console.WriteLine(String.Format("An unrecognized transaction type was found:\n{0}\nHow should this be catagorized?",record.RawTransactionType));
+            System.Console.WriteLine(String.Format("An unrecognized transaction type was found:\n{0}\nHow should this be categorized?",record.RawTransactionType));
             record.ParsedTransactionType = System.Console.ReadLine();
             if(String.IsNullOrEmpty(record.ParsedTransactionType))
             {
