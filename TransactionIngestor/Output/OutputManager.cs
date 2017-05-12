@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using TransactionIngestor.Data;
 using TransactionIngestor.Enums;
 using TransactionIngestor.Interfaces;
@@ -11,9 +12,10 @@ namespace TransactionIngestor.Output
 {
     public class OutputManager : IDataRecordConsumer, IDataRecordProducer
     {
-        ICombiner<object> mCombiner = null;
+        ICombiner mCombiner = null;
         ITransformer mTransformer = null;
         IWriter mWriter = null;
+        string combinedScratchFile = null;
 
         public IDataProducer<DataRecord> Producer
         {
@@ -28,8 +30,10 @@ namespace TransactionIngestor.Output
             mWriter.FileToWriteTo = outputFile;
             if(combine)
             {
+                combinedScratchFile = outputFile + ".combiner";
                 mCombiner = CombinerFactory.CreateCombiner(outputType);
-                mCombiner.FileToCombineWith = outputFile;
+                File.Copy(outputFile, combinedScratchFile);
+                mCombiner.FileToCombineWith = combinedScratchFile;
             }
             else
             {
@@ -52,6 +56,11 @@ namespace TransactionIngestor.Output
         public void Start()
         {
             mWriter.Start();
+
+            if(File.Exists(combinedScratchFile))
+            {
+                File.Delete(combinedScratchFile);
+            }
         }
     }
 }

@@ -7,7 +7,7 @@ using TransactionIngestor.Interfaces;
 
 namespace TransactionIngestor.Output.Combiners
 {
-    public interface ICombiner<T> : IDataConsumer<T>, IDataProducer<T>
+    public interface ICombiner : IDataConsumer<object>, IDataProducer<object>
     {
         String FileToCombineWith { set; }
     }

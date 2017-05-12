@@ -7,7 +7,7 @@ using TransactionIngestor.Interfaces;
 
 namespace TransactionIngestor.Output.Combiners
 {
-    public class PassThruCombiner : ICombiner<object>
+    public class PassThruCombiner : ICombiner
     {
         public string FileToCombineWith
         {
