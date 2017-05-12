@@ -11,6 +11,8 @@ namespace TransactionIngestor.Input.Ingestors
             {
                 case InputType.WELLS_FARGO_CSV:
                     return new WellsFargoCsvIngestor();
+                case InputType.STANDARD_FORMAT_JSON:
+                    return new StdFmtJsonIngestor();
                 default:
                     throw new IngestorException("Ingestor could not be created to handle "+type);
             }

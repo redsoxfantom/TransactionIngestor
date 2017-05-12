@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Input\Ingestors\StdFmtJsonIngestor.cs" />
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Input\RawConverterData.cs" />
     <Compile Include="Interfaces\IDataConsumer.cs" />
