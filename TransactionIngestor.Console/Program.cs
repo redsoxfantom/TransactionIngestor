@@ -50,8 +50,21 @@ namespace TransactionIngestor.Console
 
         private static Tuple<DataRecord,Regex> PromptForConversion(DataRecord record)
         {
-            record.ParsedTransactionType = record.RawTransactionType;
-            return new Tuple<DataRecord, Regex>(record, new Regex(record.RawTransactionType, RegexOptions.Compiled));
+            System.Console.WriteLine(String.Format("An unrecognized transaction type was found:\n{0}\nHow should this be catagorized?",record.RawTransactionType));
+            record.ParsedTransactionType = System.Console.ReadLine();
+            if(String.IsNullOrEmpty(record.ParsedTransactionType))
+            {
+                record.ParsedTransactionType = record.RawTransactionType;
+            }
+
+            System.Console.WriteLine("Enter a Regular Expression that we can use to recognize this transaction type in the future:");
+            String newRegex = System.Console.ReadLine();
+            if(String.IsNullOrEmpty(newRegex))
+            {
+                newRegex = record.RawTransactionType;
+            }
+
+            return new Tuple<DataRecord, Regex>(record, new Regex(newRegex, RegexOptions.Compiled));
         }
     }
 
