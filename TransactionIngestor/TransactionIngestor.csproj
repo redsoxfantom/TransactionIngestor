@@ -81,6 +81,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TransactionIngestorManager.cs" />
     <Compile Include="Input\RawConverter.cs" />
+    <Compile Include="Input\ExtraneousTagHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

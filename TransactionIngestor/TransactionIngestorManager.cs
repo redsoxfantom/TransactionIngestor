@@ -17,9 +17,10 @@ namespace TransactionIngestor
         OutputManager oMgr;
 
         public TransactionIngestorManager(Func<DataRecord, Tuple<DataRecord, Regex>> RawConversionNotFound, 
-            InputType inputType, string inputFile, OutputType outputType, string outputFile, bool combine)
+            InputType inputType, string inputFile, OutputType outputType, string outputFile, bool combine,
+			string ignoreExtraneousTag)
         {
-            iMgr = new InputManager(RawConversionNotFound, inputFile, inputType);
+			iMgr = new InputManager(RawConversionNotFound, inputFile, inputType, ignoreExtraneousTag);
             oMgr = new OutputManager(outputFile, combine, outputType);
 
             oMgr.Producer = iMgr;

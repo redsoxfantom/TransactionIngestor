@@ -15,19 +15,23 @@ namespace TransactionIngestor.Input
     {
         private IIngestor ingestor;
         private RawConverter converter;
+		private ExtraneousTagHandler extraTagHandler;
 
-        public InputManager(Func<DataRecord, Tuple<DataRecord, Regex>> RawConverterUpdateNeeded, String InputFileName, InputType inputType)
+		public InputManager(Func<DataRecord, Tuple<DataRecord, Regex>> RawConverterUpdateNeeded, String InputFileName, InputType inputType, string ignoreExtraneousTag)
         {
             ingestor = IngestorFactory.CreateIngestor(inputType);
             ingestor.InputFileName = InputFileName;
 
             converter = new RawConverter(RawConverterUpdateNeeded);
             converter.Producer = ingestor;
+
+			extraTagHandler = new ExtraneousTagHandler (ignoreExtraneousTag);
+			extraTagHandler.Producer = converter;
         }
 
         public IEnumerable<DataRecord> GetRecords()
         { 
-            foreach(var record in converter.GetRecords())
+			foreach(var record in extraTagHandler.GetRecords())
             {
                 yield return record;
             }

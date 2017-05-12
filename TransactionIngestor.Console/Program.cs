@@ -34,7 +34,7 @@ namespace TransactionIngestor.Console
                     options.InputFile, options.InputType, options.OutputFile, options.OutputType);
 
                 TransactionIngestorManager mgr = new TransactionIngestorManager(PromptForConversion, options.InputType, 
-                    options.InputFile, options.OutputType, options.OutputFile, options.Combine);
+					options.InputFile, options.OutputType, options.OutputFile, options.Combine, options.IgnoreExtraneousTag);
 
                 mgr.Process();
             }
@@ -84,6 +84,9 @@ namespace TransactionIngestor.Console
 
         [Option("outputType", Required = false, DefaultValue = OutputType.STANDARD_FORMAT_JSON, HelpText = "The type of output file this ingestor should create")]
         public OutputType OutputType { get; set; }
+
+		[Option("ignoreExtraneousTag", Required = false, HelpText="If set, will configure the output report to ignore any Transation Types beginning with this tag")]
+		public String IgnoreExtraneousTag{ get; set; }
 
         [HelpOption]
         public String Usage()
