@@ -31,10 +31,13 @@ namespace TransactionIngestor.Output.Writers
             using (StreamWriter writer = new StreamWriter(FileToWriteTo))
             using (JsonWriter jsonWriter = new JsonTextWriter(writer))
             {
+                jsonWriter.Formatting = Formatting.Indented;
+                jsonWriter.WriteStartArray();
                 foreach (DataRecord record in Producer.GetRecords())
                 {
                     ser.Serialize(jsonWriter, record);
                 }
+                jsonWriter.WriteEndArray();
             }
         }
     }
