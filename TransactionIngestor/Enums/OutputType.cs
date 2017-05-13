@@ -8,6 +8,7 @@ namespace TransactionIngestor.Enums
 {
     public enum OutputType
     {
-        STANDARD_FORMAT_JSON
+        STANDARD_FORMAT_JSON,
+		MONTHLY_TOTALS_HUMAN_READABLE
     }
 }

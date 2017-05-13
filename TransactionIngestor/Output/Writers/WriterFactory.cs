@@ -16,6 +16,8 @@ namespace TransactionIngestor.Output.Writers
             {
                 case OutputType.STANDARD_FORMAT_JSON:
                     return new StdFmtJsonWriter();
+				case OutputType.MONTHLY_TOTALS_HUMAN_READABLE:
+					return new MonTotHumReadWriter ();
                 default:
                     throw new WriterException("Could not generate writer for "+outputType);
             }

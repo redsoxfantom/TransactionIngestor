@@ -82,10 +82,16 @@
     <Compile Include="TransactionIngestorManager.cs" />
     <Compile Include="Input\RawConverter.cs" />
     <Compile Include="Input\ExtraneousTagHandler.cs" />
+    <Compile Include="Output\Writers\MonTotHumReadWriter.cs" />
+    <Compile Include="Output\Transformers\MonTotHumReadTransform.cs" />
+    <Compile Include="Output\OutputObjects\MonthlyTotal.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Output\OutputObjects\" />
+  </ItemGroup>
 </Project>

@@ -13,6 +13,8 @@ namespace TransactionIngestor.Output.Transformers
         {
             switch(outputType)
             {
+				case OutputType.MONTHLY_TOTALS_HUMAN_READABLE:
+					return new MonTotHumReadTransform ();
                 default:
                     return new PassThruTransformer();
             }
