@@ -14,7 +14,7 @@ namespace TransactionIngestor.Output.Transformers
             switch(outputType)
             {
 				case OutputType.MONTHLY_TOTALS_HUMAN_READABLE:
-					return new MonTotHumReadTransform ();
+					return new MonthlyStatisticsTransform ();
                 default:
                     return new PassThruTransformer();
             }

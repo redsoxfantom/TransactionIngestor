@@ -83,8 +83,8 @@
     <Compile Include="Input\RawConverter.cs" />
     <Compile Include="Input\ExtraneousTagHandler.cs" />
     <Compile Include="Output\Writers\MonTotHumReadWriter.cs" />
-    <Compile Include="Output\Transformers\MonTotHumReadTransform.cs" />
     <Compile Include="Output\OutputObjects\MonthlyTotal.cs" />
+    <Compile Include="Output\Transformers\MonthlyStatisticsTransform.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

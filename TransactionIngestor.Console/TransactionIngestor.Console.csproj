@@ -21,7 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Commandlineparameters>--input /home/tom/Documents/Statements/Checking1.csv  --inputType STANDARD_FORMAT_JSON --output /home/tom/Documents/Statements/combined.json</Commandlineparameters>
+    <Commandlineparameters>--input /home/tom/Documents/Statements/combined.json  --inputType STANDARD_FORMAT_JSON --outputType MONTHLY_TOTALS_HUMAN_READABLE</Commandlineparameters>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>

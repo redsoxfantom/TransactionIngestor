@@ -24,32 +24,31 @@ namespace TransactionIngestor.Output.Writers
 
 		public void Start()
 		{
-			using (FileStream writer = new FileStream (FileToWriteTo))
-			using (StringWriter sw = new StringWriter(writer))
+			using (StreamWriter writer = new StreamWriter (FileToWriteTo))
 			{
 				foreach (MonthlyTotal total in Producer.GetRecords())
 				{
-					sw.WriteLine (String.Format (HEADER_FORMAT, total.MonthName, total.Year));
-					sw.WriteLine();
+					writer.WriteLine (String.Format (HEADER_FORMAT, total.MonthName, total.Year));
+					writer.WriteLine();
 
-					sw.WriteLine ("INCOME");
+					writer.WriteLine ("INCOME");
 					foreach(var transTotal in total.Totals)
 					{
-						if(transTotal.Value >= 0)
+						if(transTotal.Value.Sum >= 0)
 						{
-							sw.WriteLine (String.Format (TRANSACTION_FORMAT, transTotal.Key, transTotal.Value));
+							writer.WriteLine (String.Format (TRANSACTION_FORMAT, transTotal.Key, transTotal.Value.Sum));
 						}
 					}
-					sw.WriteLine ();
-					sw.WriteLine ("EXPENSES");
+					writer.WriteLine ();
+					writer.WriteLine ("EXPENSES");
 					foreach(var transTotal in total.Totals)
 					{
-						if(transTotal.Value < 0)
+						if(transTotal.Value.Sum < 0)
 						{
-							sw.WriteLine (String.Format (TRANSACTION_FORMAT, transTotal.Key, transTotal.Value));
+							writer.WriteLine (String.Format (TRANSACTION_FORMAT, transTotal.Key, transTotal.Value.Sum));
 						}
 					}
-					sw.WriteLine ();
+					writer.WriteLine ();
 				}
 			}
 		}

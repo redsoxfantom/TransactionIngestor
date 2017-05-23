@@ -7,7 +7,15 @@ namespace TransactionIngestor.Output.OutputObjects
 	{
 		public int Year{ get; set;}
 		public String MonthName{ get; set;}
-		public Dictionary<String,decimal> Totals{get;set;}
+		public Dictionary<String,TransTotals> Totals{get;set;}
+
+	}
+
+	public class TransTotals
+	{
+		public int NumTransactions;
+		public decimal Average;
+		public decimal Sum;
 	}
 }
 
