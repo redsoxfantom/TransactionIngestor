@@ -2,6 +2,7 @@
 using TransactionIngestor.Interfaces;
 using TransactionIngestor.Data;
 using System.Collections.Generic;
+using System.Linq;
 using System.IO;
 using Newtonsoft.Json;
 using TransactionIngestor.Output.OutputObjects;
@@ -10,11 +11,11 @@ namespace TransactionIngestor.Output.Transformers
 {
 	public class MonthlyStatisticsTransform : ITransformer
 	{
-		private Dictionary<Tuple<String,int>,MonthlyTotal> runningTotals;
+		private Dictionary<int,MonthlyTotal> runningTotals;
 
 		public MonthlyStatisticsTransform()
 		{
-			runningTotals = new Dictionary<Tuple<string, int>, MonthlyTotal> ();
+			runningTotals = new Dictionary<int, MonthlyTotal> ();
 		}
 
 		public IDataProducer<DataRecord> Producer
@@ -29,7 +30,7 @@ namespace TransactionIngestor.Output.Transformers
 			{
 				int year = record.TransactionDate.Year;
 				String month = record.TransactionDate.ToString ("MMMM");
-				Tuple<String,int> monthKey = new Tuple<string, int> (month, year);
+				int monthKey = int.Parse (string.Format ("{0}{1}",year,record.TransactionDate.Month));
 
 				if(!runningTotals.ContainsKey(monthKey))
 				{
@@ -57,7 +58,12 @@ namespace TransactionIngestor.Output.Transformers
 				}
 			}
 
-			return runningTotals.Values;
+			var keysList = runningTotals.Keys.ToList ();
+			keysList.Sort ();
+			foreach(var key in keysList)
+			{
+				yield return runningTotals [key];
+			}
 		}
 	}
 }
