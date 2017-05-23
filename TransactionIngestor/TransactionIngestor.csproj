@@ -85,6 +85,7 @@
     <Compile Include="Output\Writers\MonTotHumReadWriter.cs" />
     <Compile Include="Output\OutputObjects\MonthlyTotal.cs" />
     <Compile Include="Output\Transformers\MonthlyStatisticsTransform.cs" />
+    <Compile Include="Output\Writers\MonTotJsonWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
