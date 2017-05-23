@@ -8,8 +8,8 @@ namespace TransactionIngestor.Output.Writers
 {
 	public class MonTotHumReadWriter : IWriter
 	{
-		private const String HEADER_FORMAT = "{0} {1}";
-		private const String TRANSACTION_FORMAT = "{0}\t${1}";
+		private const String HEADER_FORMAT = "===={0} {1}====";
+		private const String TRANSACTION_FORMAT = "{0}${1}";
 
 		public string FileToWriteTo
 		{
@@ -31,21 +31,30 @@ namespace TransactionIngestor.Output.Writers
 					writer.WriteLine (String.Format (HEADER_FORMAT, total.MonthName, total.Year));
 					writer.WriteLine();
 
-					writer.WriteLine ("INCOME");
+					int largestLineLength = 0;
+					foreach(var transTotal in total.Totals)
+					{
+						if(transTotal.Key.Length > largestLineLength)
+						{
+							largestLineLength = transTotal.Key.Length;
+						}
+					}
+
+					writer.WriteLine ("==INCOME==");
 					foreach(var transTotal in total.Totals)
 					{
 						if(transTotal.Value.Sum >= 0)
 						{
-							writer.WriteLine (String.Format (TRANSACTION_FORMAT, transTotal.Key, transTotal.Value.Sum));
+							writer.WriteLine (String.Format (TRANSACTION_FORMAT, transTotal.Key.PadRight(largestLineLength+5,'.'), transTotal.Value.Sum));
 						}
 					}
 					writer.WriteLine ();
-					writer.WriteLine ("EXPENSES");
+					writer.WriteLine ("==EXPENSES==");
 					foreach(var transTotal in total.Totals)
 					{
 						if(transTotal.Value.Sum < 0)
 						{
-							writer.WriteLine (String.Format (TRANSACTION_FORMAT, transTotal.Key, transTotal.Value.Sum));
+							writer.WriteLine (String.Format (TRANSACTION_FORMAT, transTotal.Key.PadRight(largestLineLength+5,'.'), transTotal.Value.Sum));
 						}
 					}
 					writer.WriteLine ();
