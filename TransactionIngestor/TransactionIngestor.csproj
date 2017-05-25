@@ -49,6 +49,9 @@
       <Package>monodevelop</Package>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ExcelLibrary">
+      <HintPath>..\packages\ExcelLibrary.1.2011.7.31\lib\ExcelLibrary.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Input\Ingestors\StdFmtJsonIngestor.cs" />
@@ -70,7 +73,9 @@
     <Compile Include="Enums\OutputType.cs" />
     <Compile Include="Output\Combiners\PassThruCombiner.cs" />
     <Compile Include="Output\Combiners\StdFmtJsonCombiner.cs" />
-    <Compile Include="Output\OutputManager.cs" />
+    <Compile Include="Output\OutputManager.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Output\Transformers\ITransformer.cs" />
     <Compile Include="Output\Transformers\PassThruTransformer.cs" />
     <Compile Include="Output\Transformers\TransformerFactory.cs" />
@@ -86,6 +91,7 @@
     <Compile Include="Output\OutputObjects\MonthlyTotal.cs" />
     <Compile Include="Output\Transformers\MonthlyStatisticsTransform.cs" />
     <Compile Include="Output\Writers\MonTotJsonWriter.cs" />
+    <Compile Include="Output\Writers\MonTotExcelWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

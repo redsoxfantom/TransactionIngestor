@@ -20,6 +20,8 @@ namespace TransactionIngestor.Output.Writers
 					return new MonTotHumReadWriter ();
 				case OutputType.MONTHLY_TOTALS_JSON:
 					return new MonTotJsonWriter ();
+				case OutputType.MONTHLY_TOTALS_EXCEL:
+					return new MonTotExcelWriter ();
                 default:
                     throw new WriterException("Could not generate writer for "+outputType);
             }
