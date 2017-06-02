@@ -57,14 +57,30 @@ namespace TransactionIngestor.Console
                 record.ParsedTransactionType = record.RawTransactionType;
             }
 
-            System.Console.WriteLine("Enter a Regular Expression that we can use to recognize this transaction type in the future:");
-            String newRegex = System.Console.ReadLine();
-            if(String.IsNullOrEmpty(newRegex))
-            {
-                newRegex = record.RawTransactionType;
-            }
+			bool regularExpressionMatches = false;
 
-            return new Tuple<DataRecord, Regex>(record, new Regex(newRegex, RegexOptions.Compiled));
+			Regex reg = null;
+			while (!regularExpressionMatches)
+			{
+				System.Console.WriteLine ("Enter a Regular Expression that we can use to recognize this transaction type in the future:");
+				String newRegex = System.Console.ReadLine ();
+				if (String.IsNullOrEmpty (newRegex))
+				{
+					newRegex = record.RawTransactionType;
+				}
+
+				reg = new Regex (newRegex, RegexOptions.Compiled);
+				if(!reg.IsMatch(record.RawTransactionType))
+				{
+					System.Console.WriteLine (String.Format ("The regular expression {0} does not match the transaction type {1}",reg,record.RawTransactionType));
+				}
+				else
+				{
+					regularExpressionMatches = true;
+				}
+			}
+
+            return new Tuple<DataRecord, Regex>(record, reg);
         }
     }
 
