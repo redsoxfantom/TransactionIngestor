@@ -21,8 +21,9 @@ namespace TransactionIngestor.Input.Ingestors
 
         public IEnumerable<DataRecord> GetRecords()
         {
-            using (var csv = new CsvReader(File.OpenText(InputFileName)))
+			using (var csv = new CsvReader(File.OpenText(InputFileName)))
             {
+				csv.Configuration.HasHeaderRecord = false;
                 while(csv.Read())
                 {
                     var record = new WellsFargoCsv();
