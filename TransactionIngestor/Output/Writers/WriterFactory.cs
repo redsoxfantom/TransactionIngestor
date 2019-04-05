@@ -22,6 +22,8 @@ namespace TransactionIngestor.Output.Writers
 					return new MonTotJsonWriter ();
 				case OutputType.MONTHLY_TOTALS_EXCEL:
 					return new MonTotExcelWriter ();
+                case OutputType.MONTHLY_TOTALS_CSV:
+                    return new MonTotCsvWriter();
                 default:
                     throw new WriterException("Could not generate writer for "+outputType);
             }

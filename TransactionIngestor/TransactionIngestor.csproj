@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -45,10 +48,6 @@
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b9a188c8922137c6">
-      <Package>monodevelop</Package>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="ExcelLibrary">
       <HintPath>..\packages\ExcelLibrary.1.2011.7.31\lib\ExcelLibrary.dll</HintPath>
     </Reference>
@@ -73,14 +72,13 @@
     <Compile Include="Enums\OutputType.cs" />
     <Compile Include="Output\Combiners\PassThruCombiner.cs" />
     <Compile Include="Output\Combiners\StdFmtJsonCombiner.cs" />
-    <Compile Include="Output\OutputManager.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
+    <Compile Include="Output\OutputManager.cs" />
     <Compile Include="Output\Transformers\ITransformer.cs" />
     <Compile Include="Output\Transformers\PassThruTransformer.cs" />
     <Compile Include="Output\Transformers\TransformerFactory.cs" />
     <Compile Include="Output\Writers\Exceptions\WriterException.cs" />
     <Compile Include="Output\Writers\IWriter.cs" />
+    <Compile Include="Output\Writers\MonTotCsvWriter.cs" />
     <Compile Include="Output\Writers\StdFmtJsonWriter.cs" />
     <Compile Include="Output\Writers\WriterFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -98,7 +96,5 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <Folder Include="Output\OutputObjects\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>

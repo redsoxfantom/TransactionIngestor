@@ -16,6 +16,7 @@ namespace TransactionIngestor.Output.Transformers
 				case OutputType.MONTHLY_TOTALS_HUMAN_READABLE:
 				case OutputType.MONTHLY_TOTALS_JSON:
 				case OutputType.MONTHLY_TOTALS_EXCEL:
+                case OutputType.MONTHLY_TOTALS_CSV:
 					return new MonthlyStatisticsTransform ();
                 default:
                     return new PassThruTransformer();
