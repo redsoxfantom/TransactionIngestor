@@ -21,11 +21,8 @@ namespace TransactionIngestor.Console
 
         static void Main(string[] args)
         {
-            BasicConfigurator.Configure();
-
-            var options = new Options();
-            if (CommandLine.Parser.Default.ParseArguments(args, options))
-            {
+            CommandLine.Parser.Default.ParseArguments<Options>(args)
+            .WithParsed<Options>(options=>{
                 if (options.OutputFile == null)
                 {
                     options.OutputFile = Path.Combine(Directory.GetCurrentDirectory(), "output");
@@ -37,12 +34,11 @@ namespace TransactionIngestor.Console
 					options.InputFile, options.OutputType, options.OutputFile, options.Combine, options.IgnoreExtraneousTag);
 
                 mgr.Process();
-            }
-            else
-            {
+            })
+            .WithNotParsed<Options>(Error=>{
                 log.Error("Failed to parse arguments");
                 Environment.Exit(1);
-            }
+            });
 
             Environment.ExitCode = 0;
             log.Info("Done!");
@@ -92,23 +88,16 @@ namespace TransactionIngestor.Console
         [Option("inputType", Required = true, HelpText = "Type of input file this is")]
         public InputType InputType { get; set; }
 
-        [Option("output", Required = false, DefaultValue = null, HelpText = "The path to the output file this should tool should generate. Defaults to <current directory>/output")]
+        [Option("output", Required = false, Default = null, HelpText = "The path to the output file this should tool should generate. Defaults to <current directory>/output")]
         public String OutputFile { get; set; }
 
-        [Option("combine", Required = false, DefaultValue = false, HelpText = "If the output file already exists, deterimines whether or not we should add this file to it or just wipe it out")]
+        [Option("combine", Required = false, Default = false, HelpText = "If the output file already exists, deterimines whether or not we should add this file to it or just wipe it out")]
         public Boolean Combine { get; set; }
 
-        [Option("outputType", Required = false, DefaultValue = OutputType.STANDARD_FORMAT_JSON, HelpText = "The type of output file this ingestor should create")]
+        [Option("outputType", Required = false, Default = OutputType.STANDARD_FORMAT_JSON, HelpText = "The type of output file this ingestor should create")]
         public OutputType OutputType { get; set; }
 
 		[Option("ignoreExtraneousTag", Required = false, HelpText="If set, will configure the output report to ignore any Transation Types beginning with this tag")]
 		public String IgnoreExtraneousTag{ get; set; }
-
-        [HelpOption]
-        public String Usage()
-        {
-            return HelpText.AutoBuild(this, (HelpText current) =>
-                HelpText.DefaultParsingErrorsHandler(this, current));
-        }
     }
 }

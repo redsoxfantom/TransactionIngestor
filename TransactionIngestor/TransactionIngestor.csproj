@@ -1,100 +1,14 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{08129FF2-65FB-4F08-AD18-A11805913C77}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>TransactionIngestor</RootNamespace>
-    <AssemblyName>TransactionIngestor</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-    <Reference Include="CsvHelper">
-      <HintPath>..\packages\CsvHelper.2.16.3.0\lib\net45\CsvHelper.dll</HintPath>
-    </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="ExcelLibrary">
-      <HintPath>..\packages\ExcelLibrary.1.2011.7.31\lib\ExcelLibrary.dll</HintPath>
-    </Reference>
+    <PackageReference Include="CsvHelper" Version="12.2.1" />
+    <PackageReference Include="ExcelLibrary" Version="1.2011.7.31" />
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Input\Ingestors\StdFmtJsonIngestor.cs" />
-    <Compile Include="Input\InputManager.cs" />
-    <Compile Include="Input\RawConverterData.cs" />
-    <Compile Include="Interfaces\IDataConsumer.cs" />
-    <Compile Include="Interfaces\IDataProducer.cs" />
-    <Compile Include="Output\Combiners\CombinerFactory.cs" />
-    <Compile Include="Data\DataRecord.cs" />
-    <Compile Include="Output\Combiners\Exceptions\CombinerException.cs" />
-    <Compile Include="Input\Ingestors\Exceptions\IngestorException.cs" />
-    <Compile Include="Input\Ingestors\IngestorFactory.cs" />
-    <Compile Include="Input\Ingestors\WellsFargoCsvIngestor.cs" />
-    <Compile Include="Output\Combiners\ICombiner.cs" />
-    <Compile Include="Interfaces\IDataRecordConsumer.cs" />
-    <Compile Include="Interfaces\IDataRecordProducer.cs" />
-    <Compile Include="Input\Ingestors\IIngestor.cs" />
-    <Compile Include="Enums\InputType.cs" />
-    <Compile Include="Enums\OutputType.cs" />
-    <Compile Include="Output\Combiners\PassThruCombiner.cs" />
-    <Compile Include="Output\Combiners\StdFmtJsonCombiner.cs" />
-    <Compile Include="Output\OutputManager.cs" />
-    <Compile Include="Output\Transformers\ITransformer.cs" />
-    <Compile Include="Output\Transformers\PassThruTransformer.cs" />
-    <Compile Include="Output\Transformers\TransformerFactory.cs" />
-    <Compile Include="Output\Writers\Exceptions\WriterException.cs" />
-    <Compile Include="Output\Writers\IWriter.cs" />
-    <Compile Include="Output\Writers\MonTotCsvWriter.cs" />
-    <Compile Include="Output\Writers\StdFmtJsonWriter.cs" />
-    <Compile Include="Output\Writers\WriterFactory.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TransactionIngestorManager.cs" />
-    <Compile Include="Input\RawConverter.cs" />
-    <Compile Include="Input\ExtraneousTagHandler.cs" />
-    <Compile Include="Output\Writers\MonTotHumReadWriter.cs" />
-    <Compile Include="Output\OutputObjects\MonthlyTotal.cs" />
-    <Compile Include="Output\Transformers\MonthlyStatisticsTransform.cs" />
-    <Compile Include="Output\Writers\MonTotJsonWriter.cs" />
-    <Compile Include="Output\Writers\MonTotExcelWriter.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <ItemGroup />
+
 </Project>
