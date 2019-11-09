@@ -50,3 +50,8 @@ if ( -not $?)
 }
 
 ((Get-Content "../output/run.ps1" -Raw) -replace '<TRANSACTIONSDIRCTORY>',"$TransactionsDirectory") | Set-Content "../output/run.ps1"
+if ( -not $?)
+{
+    Write-Error "Failed to replace text in run.ps1"
+    exit 1
+}
