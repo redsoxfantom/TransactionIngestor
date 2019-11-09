@@ -49,6 +49,27 @@ if ( -not $?)
     exit 1
 }
 
+Copy-Item "./combined/*" -Destination "../output/"
+if ( -not $?)
+{
+    Write-Error "Script Copy Failed"
+    exit 1
+}
+
+$ValidInputs = & ../output/TransactionIngestor/TransactionIngestor.Install.Support.exe --request "GET_INPUT_TYPES"
+if ( -not $?)
+{
+    Write-Error "Failed to get input types"
+    exit 1
+}
+$ValidInputs = $ValidInputs.Split(', ')
+((Get-Content "../output/README.md" -Raw) -replace '<TRANSACTIONSDIRCTORY>',"$TransactionsDirectory" -replace '<INPUTTYPES>',"$ValidInputs") | Set-Content "../output/README.md"
+if ( -not $?)
+{
+    Write-Error "Failed to replace text in README.md"
+    exit 1
+}
+
 ((Get-Content "../output/run.ps1" -Raw) -replace '<TRANSACTIONSDIRCTORY>',"$TransactionsDirectory") | Set-Content "../output/run.ps1"
 if ( -not $?)
 {
