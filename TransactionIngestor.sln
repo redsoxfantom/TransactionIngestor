@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionIngestor", "Tran
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionIngestor.Console", "TransactionIngestor.Console\TransactionIngestor.Console.csproj", "{E3E4FFFB-5440-4FD9-B311-9DA7D533106E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionIngestor.Install.Support", "TransactionIngestor.Install.Support\TransactionIngestor.Install.Support.csproj", "{331787C9-3288-44A3-BB3C-528C5AFB03BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{E3E4FFFB-5440-4FD9-B311-9DA7D533106E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3E4FFFB-5440-4FD9-B311-9DA7D533106E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E3E4FFFB-5440-4FD9-B311-9DA7D533106E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{331787C9-3288-44A3-BB3C-528C5AFB03BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{331787C9-3288-44A3-BB3C-528C5AFB03BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{331787C9-3288-44A3-BB3C-528C5AFB03BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{331787C9-3288-44A3-BB3C-528C5AFB03BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
