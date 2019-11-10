@@ -18,12 +18,12 @@ if( -not (Test-Path $TransactionsDirectory))
     }
 }
 
-if(Test-Path "'$TransactionsDirectory'")
+if(Test-Path $TransactionsDirectory/TransactionIngestor)
 {
-    Remove-Item "'$TransactionsDirectory'" -Recurse
+    Remove-Item $TransactionsDirectory/TransactionIngestor -Recurse
     if ( -not $?)
     {
-        Write-Error "Failed to delete $TransactionsDirectory folder"
+        Write-Error "Failed to delete $TransactionsDirectory/TransactionIngestor folder"
         exit 1
     }
 }
