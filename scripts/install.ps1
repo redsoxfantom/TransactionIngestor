@@ -10,6 +10,7 @@ if([String]::IsNullOrEmpty($TransactionsDirectory))
 
 if( -not (Test-Path $TransactionsDirectory))
 {
+    Write-Output "Creating $TransactionsDirectory..."
     New-Item $TransactionsDirectory -ItemType "directory" | Out-Null
     if( -not $?)
     {
@@ -20,6 +21,7 @@ if( -not (Test-Path $TransactionsDirectory))
 
 if(Test-Path $TransactionsDirectory/TransactionIngestor)
 {
+    Write-Output "Deleting $TransactionsDirectory/TransactionIngestor..."
     Remove-Item $TransactionsDirectory/TransactionIngestor -Recurse
     if ( -not $?)
     {
@@ -30,6 +32,7 @@ if(Test-Path $TransactionsDirectory/TransactionIngestor)
 
 if(Test-Path "../output")
 {
+    Write-Output "Deleting old compilation outputs..."
     Remove-Item "../output" -Recurse
     if ( -not $?)
     {
@@ -52,6 +55,8 @@ if ( -not $?)
     exit 1
 }
 
+Write-Output "Copying scripts from windows and combined folders..."
+
 Copy-Item "./windows/*" -Destination "$TransactionsDirectory"
 if ( -not $?)
 {
@@ -66,7 +71,8 @@ if ( -not $?)
     exit 1
 }
 
-Copy-Item -Path "../output/*" -Destination $TransactionsDirectory/TransactionIngestor -Container
+Write-Output "Copying compiled output to $TransactionsDirectory/TransactionIngestor"
+Copy-Item -Path ../output -Recurse -Destination $TransactionsDirectory/TransactionIngestor -Container
 if ( -not $?)
 {
     Write-Error "Compiled Output Copy Failed"
@@ -80,6 +86,9 @@ if ( -not $?)
     exit 1
 }
 $ValidInputs = $ValidInputs.Split(', ')
+
+Write-Output "Updating $TransactionsDirectory/README.md and $TransactionsDirectory/run.ps1"
+
 ((Get-Content "$TransactionsDirectory/README.md" -Raw) -replace '<TRANSACTIONSDIRCTORY>',"$TransactionsDirectory/Inputs" -replace '<INPUTTYPES>',"$ValidInputs") | Set-Content "$TransactionsDirectory/README.md"
 if ( -not $?)
 {
@@ -87,9 +96,11 @@ if ( -not $?)
     exit 1
 }
 
-((Get-Content "$TransactionsDirectory/run.ps1" -Raw) -replace '<TRANSACTIONSDIRCTORY>',"$TransactionsDirectory/Inputs") | Set-Content "$TransactionsDirectory/run.ps1"
+((Get-Content "$TransactionsDirectory/run.ps1" -Raw) -replace '<EXEDIRECTORY>',"$TransactionsDirectory/TransactionIngestor" -replace '<TRANSACTIONSDIRCTORY>',"$TransactionsDirectory/Inputs") | Set-Content "$TransactionsDirectory/run.ps1"
 if ( -not $?)
 {
     Write-Error "Failed to replace text in run.ps1"
     exit 1
 }
+
+Write-Output "`r`nInstallation completed`r`nRun $TransactionsDirectory/run.ps1 to ingest transactions`r`n"
