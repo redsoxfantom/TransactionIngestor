@@ -9,3 +9,11 @@ try_run() {
         exit 1
     fi
 }
+
+if [ -z "$1" ]
+then
+    TransactionsDirectory=$HOME/Transactions
+else
+    TransactionsDirectory=$1
+fi
+try_run "mkdir -p $TransactionsDirectory"
