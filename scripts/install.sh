@@ -17,3 +17,9 @@ else
     TransactionsDirectory=$1
 fi
 try_run "mkdir -p $TransactionsDirectory"
+
+InstallDir=$TransactionsDirectory/TransactionIngestor
+if [ -d $InstallDir ]
+then
+    try_run "rm -rf $InstallDir"
+fi
