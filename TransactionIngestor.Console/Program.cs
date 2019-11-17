@@ -62,18 +62,29 @@ namespace TransactionIngestor.Console
 				String newRegex = System.Console.ReadLine ();
 				if (String.IsNullOrEmpty (newRegex))
 				{
-					newRegex = record.RawTransactionType;
+                    regularExpressionMatches = true;
+                    reg = null;
 				}
-
-				reg = new Regex (newRegex, RegexOptions.Compiled);
-				if(!reg.IsMatch(record.RawTransactionType))
-				{
-					System.Console.WriteLine (String.Format ("The regular expression {0} does not match the transaction type {1}",reg,record.RawTransactionType));
-				}
-				else
-				{
-					regularExpressionMatches = true;
-				}
+                else
+                {
+                    try
+                    {
+                        reg = new Regex (newRegex, RegexOptions.Compiled);
+                        if(!reg.IsMatch(record.RawTransactionType))
+                        {
+                            System.Console.WriteLine (String.Format ("The regular expression {0} does not match the transaction type {1}",reg,record.RawTransactionType));
+                        }
+                        else
+                        {
+                            regularExpressionMatches = true;
+                        }
+                    }
+                    catch(Exception)
+                    {
+                        System.Console.WriteLine(String.Format("Failed to parse regular expression {0}",newRegex));
+                        regularExpressionMatches = false;
+                    }
+                }
 			}
 
             return new Tuple<DataRecord, Regex>(record, reg);

@@ -54,12 +54,15 @@ namespace TransactionIngestor.Input
                     if (!foundConverter)
                     {
                         var updatedConfigRecord = UpdateNeededMethod(record);
-                        loadedConverters.Add(new RawConverterData()
+                        if(updatedConfigRecord.Item2 != null)
                         {
-                            TransactionRegex = updatedConfigRecord.Item2,
-                            ParsedTransaction = updatedConfigRecord.Item1.ParsedTransactionType
-                        });
-                        RawConverterData.WriteConfig(loadedConverters);
+                            loadedConverters.Add(new RawConverterData()
+                            {
+                                TransactionRegex = updatedConfigRecord.Item2,
+                                ParsedTransaction = updatedConfigRecord.Item1.ParsedTransactionType
+                            });
+                            RawConverterData.WriteConfig(loadedConverters);
+                        }
                         yield return updatedConfigRecord.Item1;
                     }
                     else
