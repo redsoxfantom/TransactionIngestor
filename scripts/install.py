@@ -4,10 +4,20 @@ import shutil
 import os
 from os import path 
 import subprocess
+from distutils.dir_util import copy_tree
 
-def _run_command(cmd):
+def _run_command(cmd,capture_output=False):
     print(F"Executing command: {cmd}")
-    subprocess.run(cmd,shell=True,check=True)
+    result = subprocess.run(cmd,shell=True,check=True,text=True,capture_output=capture_output)
+    return result.stdout
+
+def _replace_file_contents(filename,replacement_mapping):
+    with open(filename,"r") as f:
+        contents = f.read()
+        for replacement in replacement_mapping:
+            contents = contents.replace(replacement,replacement_mapping[replacement])
+    with open(filename,"w") as f:
+        f.write(contents)
 
 def dotnet_installed():
     if not shutil.which('dotnet'):
@@ -53,6 +63,33 @@ def restore_and_compile():
         return False
     return True
 
+def copy_outputs(transactionsDirectory):
+    try:
+        print(F"Copying outputs to {transactionsDirectory}")
+        scriptdir = os.path.dirname(__file__)
+        shutil.copyfile(os.path.join(scriptdir,"run.py"),os.path.join(transactionsDirectory,"run.py"))
+        shutil.copyfile(os.path.join(scriptdir,"README.md"),os.path.join(transactionsDirectory,"README.md"))
+        copy_tree(os.path.join(scriptdir,"..","output"),os.path.join(transactionsDirectory,"TransactionIngestor"))
+    except Exception as ex:
+        print(F"Failed to copy outputs: {ex}")
+        return False
+    return True
+
+def update_scripts(transactionsDirectory):
+    try:
+        print("Updating README.md")
+        install_support_dll = os.path.join(transactionsDirectory,"TransactionIngestor","TransactionIngestor.Install.Support.dll")
+        valid_inputs = _run_command(F"dotnet {install_support_dll} --request GET_INPUT_TYPES",capture_output=True).strip()
+        replacement_mapping = {
+            "<TRANSACTIONSDIRECTORY>": os.path.join(transactionsDirectory,"Inputs"),
+            "<INPUTTYPES>": valid_inputs
+        }
+        _replace_file_contents(os.path.join(transactionsDirectory,"README.md"),replacement_mapping)
+    except Exception as ex:
+        print(F"Failed to update scripts in {transactionsDirectory}: {ex}")
+        return False
+    return True
+
 def install(args):
     print("Checking required software")
     if len(args) == 2:
@@ -65,6 +102,10 @@ def install(args):
         return False
     if not restore_and_compile():
         return False
+    if not copy_outputs(transactionsDirectory):
+        return False
+    if not update_scripts(transactionsDirectory):
+        return False
     return True
 
 if __name__ == "__main__":
@@ -72,4 +113,4 @@ if __name__ == "__main__":
         print("Install Failed")
         sys.exit(1)
     else:
-        print("Install Succeded")
+        print("Install was Successful")
