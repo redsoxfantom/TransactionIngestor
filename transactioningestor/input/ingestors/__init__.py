@@ -1,6 +1,6 @@
 from transactioningestor.input.ingestors.wellsfargoingestor import WellsFargoIngestor
 from transactioningestor.input.ingestors.stdfmtjsoningestor import StandardFormatJsonIngestor
-from transactioningestor.enums import ImputType
+from transactioningestor.enums import InputType
 from os import path
 
 class IngestorException(Exception):
