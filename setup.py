@@ -39,5 +39,7 @@ setup(
     long_description_content_type="text/markdown",
     packages=find_packages(),
     install_requires=requirements,
-    python_requires=">=3.7.3"
+    python_requires=">=3.7.3",
+    test_suite='nose.collector',
+    tests_require=['nose']
 )
