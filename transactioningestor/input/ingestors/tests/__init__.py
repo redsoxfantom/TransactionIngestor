@@ -31,6 +31,17 @@ class WellsFargoCsvTests(unittest.TestCase):
     def test_init(self):
         self.assertEqual(self.ingestor._inputfilename,os.path.join(os.path.dirname(__file__),"dummy.csv"))
 
+    def test_get_records(self):
+        for record in self.ingestor.get_elements():
+            if record.RawTransactionType == 'Salary':
+                self.assertEqual(None,record.ParsedTransactionType)
+                self.assertEqual(500.0,record.TransactionAmount)
+                self.assertEqual(datetime(2018,12,28,0,0),record.TransactionDate)
+            if record.RawTransactionType == 'Salary2':
+                self.assertEqual(None,record.ParsedTransactionType)
+                self.assertEqual(50.01,record.TransactionAmount)
+                self.assertEqual(datetime(2018,12,27,0,0),record.TransactionDate)
+
 class StdFormatJsonTests(unittest.TestCase):
 
     def setUp(self):
