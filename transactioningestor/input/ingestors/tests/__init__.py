@@ -1,5 +1,6 @@
 from transactioningestor.input.ingestors import *
 from transactioningestor.enums import InputType
+from datetime import datetime
 import uuid
 import os
 import unittest
@@ -38,3 +39,13 @@ class StdFormatJsonTests(unittest.TestCase):
     def test_init(self):
         self.assertEqual(self.ingestor._inputfilename,os.path.join(os.path.dirname(__file__),"dummy.json"))
     
+    def test_get_records(self):
+        for record in self.ingestor.get_elements():
+            if record.RawTransactionType == 'MOBILE DEPOSIT':
+                self.assertEqual('Transfer',record.ParsedTransactionType)
+                self.assertEqual(300.0, record.TransactionAmount)
+                self.assertEqual(datetime(2017,7,21,0,0),record.TransactionDate)
+            if record.RawTransactionType == 'DEPOSIT':
+                self.assertEqual('Deposit',record.ParsedTransactionType)
+                self.assertEqual(11514, record.TransactionAmount)
+                self.assertEqual(datetime(2017,8,25,0,0),record.TransactionDate)
