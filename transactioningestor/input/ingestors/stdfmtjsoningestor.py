@@ -1,4 +1,4 @@
 
 class StandardFormatJsonIngestor(object):
-    def __init__(self,inputfile):
-        self._inputfile = inputfile
+    def __init__(self,inputfilename):
+        self._inputfilename = inputfilename
