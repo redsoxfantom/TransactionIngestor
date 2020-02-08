@@ -29,3 +29,12 @@ class WellsFargoCsvTests(unittest.TestCase):
 
     def test_init(self):
         self.assertEqual(self.ingestor._inputfilename,os.path.join(os.path.dirname(__file__),"dummy.csv"))
+
+class StdFormatJsonTests(unittest.TestSuite):
+
+    def setUp(self):
+        self.ingestor = StandardFormatJsonIngestor(os.path.join(os.path.dirname(__file__),"dummy.json"))
+
+    def test_init(self):
+        self.assertEqual(self.ingestor._inputfilename,os.path.join(os.path.dirname(__file__),"dummy.json"))
+    

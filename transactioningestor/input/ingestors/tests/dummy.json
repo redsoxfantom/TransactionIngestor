@@ -1,0 +1,14 @@
+[
+    {
+      "TransactionDate": "2017-07-21T00:00:00",
+      "TransactionAmount": 300.0,
+      "RawTransactionType": "MOBILE DEPOSIT",
+      "ParsedTransactionType": "Transfer"
+    },
+    {
+      "TransactionDate": "2017-08-25T00:00:00",
+      "TransactionAmount": 11514,
+      "RawTransactionType": "DEPOSIT",
+      "ParsedTransactionType": "Deposit"
+    }
+  ]
