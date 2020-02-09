@@ -1,0 +1,10 @@
+[
+    {
+        "ParsedTransaction": "Custom Parsed Transaction",
+        "TransactionRegex":  "Data*"
+    },
+    {
+        "ParsedTransaction": "Salary",
+        "TransactionRegex": "PAYROLL*"
+    }
+]
