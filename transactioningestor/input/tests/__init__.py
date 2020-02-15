@@ -1,16 +1,11 @@
-from transactioningestor.input.dataconverter import *
+from transactioningestor.input.dataconverter import RawConverter
+from transactioningestor.input.extraneoustag import ExtraneousTagHandler
 from transactioningestor.data import DataRecord
 import os
 import unittest
 import json
+from transactioningestor.input.tests.dataproducer import DataProducer
 from unittest.mock import *
-
-class DataProducer:
-    def __init__(self,RawTransactionType,ParsedTransactionType):
-        self.ParsedTransactionType = ParsedTransactionType
-        self.RawTransactionType = RawTransactionType
-    def get_records(self):
-        yield DataRecord(self.RawTransactionType,self.ParsedTransactionType,None,None)
 
 class RawConverterTests(unittest.TestCase):
 
@@ -67,3 +62,22 @@ class RawConverterTests(unittest.TestCase):
                 self.assertEqual("DataForTesting",record.RawTransactionType)
                 self.assertEqual("NEWDATA2", record.ParsedTransactionType)
             mockopen().write.assert_called_once_with('[{"ParsedTransaction": "NEWDATA", "TransactionRegex": "NEWREGEX"}, {"ParsedTransaction": "NEWDATA2", "TransactionRegex": "NEWREGEX2"}]')
+
+    def test_extraneoustag_not_found(self):
+        handler = ExtraneousTagHandler(DataProducer("RawData","Data"),extraneoustag="NOTHING")
+        for record in handler.get_records():
+            self.assertEqual("RawData",record.RawTransactionType)
+            self.assertEqual("Data", record.ParsedTransactionType)
+
+    def test_no_extraneoustag(self):
+        handler = ExtraneousTagHandler(DataProducer("RawData","Data"))
+        for record in handler.get_records():
+            self.assertEqual("RawData",record.RawTransactionType)
+            self.assertEqual("Data", record.ParsedTransactionType)
+
+    def test_extraneoustag_found(self):
+        handler = ExtraneousTagHandler(DataProducer("RawData","TAGData"),extraneoustag="TAG")
+        count = 0
+        for record in handler.get_records():
+            count += 1
+        self.assertEqual(0,count)
