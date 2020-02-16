@@ -56,7 +56,6 @@ class RawConverterTests(unittest.TestCase):
         os.path.isfile.return_value = True
         mockopen = mock_open(read_data="[{\"ParsedTransaction\": \"NEWDATA\", \"TransactionRegex\": \"NEWREGEX\"}]")
         with patch(F"{RawConverter.__module__}.open",mockopen):
-            mockopen().read
             converter = RawConverter(DataProducer("DataForTesting",None),lambda record: ("NEWREGEX2","NEWDATA2"), "/dummy/file.json")
             for record in converter.get_records():
                 self.assertEqual("DataForTesting",record.RawTransactionType)
