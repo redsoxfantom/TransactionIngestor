@@ -25,8 +25,12 @@ class InitTests(unittest.TestCase):
             self.assertEqual(ingestor.__class__.__name__,"WellsFargoIngestor")
     
     def test_stdfmtjson(self):
-        ingestor = createingestor(InputType.STANDARD_FORMAT_JSON.name,os.path.dirname(__file__)+"/dummy.csv")
-        self.assertEqual(ingestor.__class__.__name__,"StandardFormatJsonIngestor")
+        os.path.isfile = MagicMock()
+        os.path.isfile.return_value = True
+        mockopen = mock_open()
+        with patch(F"{StandardFormatJsonIngestor.__module__}.open",mockopen):
+            ingestor = createingestor(InputType.STANDARD_FORMAT_JSON.name,os.path.dirname(__file__)+"/dummy.csv")
+            self.assertEqual(ingestor.__class__.__name__,"StandardFormatJsonIngestor")
 
 class WellsFargoCsvTests(unittest.TestCase):
 

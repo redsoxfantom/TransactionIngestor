@@ -16,6 +16,8 @@ class RawConverterTests(unittest.TestCase):
         self.assertEqual(0,len(converter._loadedregexdata))
 
     def test_no_conversion_needed(self):
+        os.path.isfile = MagicMock()
+        os.path.isfile.return_value = False
         converter = RawConverter(DataProducer("RawData","Data"),None,"file")
         for record in converter.get_records():
             self.assertEqual("Data",record.ParsedTransactionType)
