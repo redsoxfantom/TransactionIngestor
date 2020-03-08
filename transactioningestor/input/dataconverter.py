@@ -24,11 +24,11 @@ class RawConverter:
                         break
                 if not conversionFound:
                     result = self._updateneededmethod(record)
-                    record.ParsedTransactionType = result[1]
-                    if result[0]:
+                    record.ParsedTransactionType = result['transactiontype']
+                    if 'saveregex' in result and result['saveregex']:
                         converterdata = {}
-                        converterdata['ParsedTransaction'] = result[1]
-                        converterdata['TransactionRegex'] = result[0]
+                        converterdata['ParsedTransaction'] = result['transactiontype']
+                        converterdata['TransactionRegex'] = result['regex']
                         self._loadedregexdata.append(converterdata)
                         with open(self._regexfile, "w") as f:
                             filecontents = json.dumps(self._loadedregexdata)

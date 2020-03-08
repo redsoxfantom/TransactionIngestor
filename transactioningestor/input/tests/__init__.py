@@ -36,7 +36,7 @@ class RawConverterTests(unittest.TestCase):
         mockIsFile.return_value = False
         mockopen = mock_open()
         with patch(F"{RawConverter.__module__}.open",mockopen):
-            converter = RawConverter(DataProducer("UNRECOGNIZEDDATA",None),lambda record: ("NEWREGEX","NEWDATA"),"/dummy/file.json")
+            converter = RawConverter(DataProducer("UNRECOGNIZEDDATA",None),lambda record: {'saveregex': True, 'regex' : "NEWREGEX",'transactiontype': "NEWDATA"},"/dummy/file.json")
             for record in converter.get_records():
                 self.assertEqual("UNRECOGNIZEDDATA",record.RawTransactionType)
                 self.assertEqual("NEWDATA",record.ParsedTransactionType)
@@ -48,7 +48,7 @@ class RawConverterTests(unittest.TestCase):
         mockIsFile.return_value = False
         mockopen = mock_open()
         with patch(F"{RawConverter.__module__}.open",mockopen):
-            converter = RawConverter(DataProducer("UNRECOGNIZEDDATA",None),lambda record: (None,"NEWDATA"),"/dummy/file.json")
+            converter = RawConverter(DataProducer("UNRECOGNIZEDDATA",None),lambda record: {'saveregex': False, 'transactiontype': "NEWDATA"},"/dummy/file.json")
             for record in converter.get_records():
                 self.assertEqual("UNRECOGNIZEDDATA",record.RawTransactionType)
                 self.assertEqual("NEWDATA",record.ParsedTransactionType)
@@ -60,7 +60,7 @@ class RawConverterTests(unittest.TestCase):
         mockIsFile.return_value = True
         mockopen = mock_open(read_data="[{\"ParsedTransaction\": \"NEWDATA\", \"TransactionRegex\": \"NEWREGEX\"}]")
         with patch(F"{RawConverter.__module__}.open",mockopen):
-            converter = RawConverter(DataProducer("DataForTesting",None),lambda record: ("NEWREGEX2","NEWDATA2"), "/dummy/file.json")
+            converter = RawConverter(DataProducer("DataForTesting",None),lambda record: {'saveregex': True, 'regex' : "NEWREGEX2",'transactiontype': "NEWDATA2"}, "/dummy/file.json")
             for record in converter.get_records():
                 self.assertEqual("DataForTesting",record.RawTransactionType)
                 self.assertEqual("NEWDATA2", record.ParsedTransactionType)
