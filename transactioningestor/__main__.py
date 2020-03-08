@@ -1,10 +1,16 @@
-from transactioningestor import get_transaction_dir
+from transactioningestor import get_transaction_dir, TransactionIngestor
 from transactioningestor.enums import InputType
 import sys
 import os.path
+from glob import glob
 
 transdir = get_transaction_dir()
 possibleinputs = [str(i).split('.',1)[1] for i in InputType]
+
+def parsefilesfromfolder(inputtype,inputfolder):
+    for file in glob(os.path.join(inputfolder,"*")):
+        print(F"Parsing {file}...")
+    pass
 
 def lastmonthrun():
     from datetime import datetime,timedelta
@@ -14,7 +20,13 @@ def lastmonthrun():
     searchdir = os.path.join(transdir,year,month)
     print(F"Searching for transactions in {searchdir}...")
     
-    if not os.path.isdir(searchdir):
+    atleastoneinputfound = False
+    for inputtype in possibleinputs:
+        inputfolder = os.path.join(searchdir,inputtype)
+        if os.path.isdir(inputfolder):
+            atleastoneinputfound = True
+            parsefilesfromfolder(inputtype,inputfolder)
+    if not atleastoneinputfound:
         print(F"No transaction directories found. Possible directories: {','.join(possibleinputs)}")
         return 1
 
