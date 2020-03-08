@@ -9,15 +9,17 @@ from unittest.mock import *
 
 class RawConverterTests(unittest.TestCase):
 
-    def test_init(self):
+    @patch('os.path.isfile')
+    def test_init(self,mockIsFile):
+        mockIsFile.return_value = False
         converter = RawConverter("producer","method","file")
         self.assertEqual("producer",converter._dataproducer)
         self.assertEqual("method",converter._updateneededmethod)
         self.assertEqual(0,len(converter._loadedregexdata))
 
-    def test_no_conversion_needed(self):
-        os.path.isfile = MagicMock()
-        os.path.isfile.return_value = False
+    @patch('os.path.isfile')
+    def test_no_conversion_needed(self,mockIsFile):
+        mockIsFile.return_value = False
         converter = RawConverter(DataProducer("RawData","Data"),None,"file")
         for record in converter.get_records():
             self.assertEqual("Data",record.ParsedTransactionType)
@@ -29,9 +31,9 @@ class RawConverterTests(unittest.TestCase):
             self.assertEqual("DataForTesting",record.RawTransactionType)
             self.assertEqual("Custom Parsed Transaction", record.ParsedTransactionType)
 
-    def test_regex_doesnt_match(self):
-        os.path.isfile = MagicMock()
-        os.path.isfile.return_value = False
+    @patch('os.path.isfile')
+    def test_regex_doesnt_match(self,mockIsFile):
+        mockIsFile.return_value = False
         mockopen = mock_open()
         with patch(F"{RawConverter.__module__}.open",mockopen):
             converter = RawConverter(DataProducer("UNRECOGNIZEDDATA",None),lambda record: ("NEWREGEX","NEWDATA"),"/dummy/file.json")
@@ -41,9 +43,9 @@ class RawConverterTests(unittest.TestCase):
             mockopen.assert_called_once_with("/dummy/file.json",'w')
             mockopen().write.assert_called_once_with("[{\"ParsedTransaction\": \"NEWDATA\", \"TransactionRegex\": \"NEWREGEX\"}]")
         
-    def test_regex_doesnt_match_no_new_regex(self):
-        os.path.isfile = MagicMock()
-        os.path.isfile.return_value = False
+    @patch('os.path.isfile')
+    def test_regex_doesnt_match_no_new_regex(self,mockIsFile):
+        mockIsFile.return_value = False
         mockopen = mock_open()
         with patch(F"{RawConverter.__module__}.open",mockopen):
             converter = RawConverter(DataProducer("UNRECOGNIZEDDATA",None),lambda record: (None,"NEWDATA"),"/dummy/file.json")
@@ -53,9 +55,9 @@ class RawConverterTests(unittest.TestCase):
             mockopen.assert_not_called()
             mockopen().write.assert_not_called()
             
-    def test_regex_doesnt_match_add_regex(self):
-        os.path.isfile = MagicMock()
-        os.path.isfile.return_value = True
+    @patch('os.path.isfile')
+    def test_regex_doesnt_match_add_regex(self,mockIsFile):
+        mockIsFile.return_value = True
         mockopen = mock_open(read_data="[{\"ParsedTransaction\": \"NEWDATA\", \"TransactionRegex\": \"NEWREGEX\"}]")
         with patch(F"{RawConverter.__module__}.open",mockopen):
             converter = RawConverter(DataProducer("DataForTesting",None),lambda record: ("NEWREGEX2","NEWDATA2"), "/dummy/file.json")
