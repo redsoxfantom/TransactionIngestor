@@ -4,6 +4,7 @@ from datetime import datetime
 import uuid
 import os
 import unittest
+from unittest.mock import *
 
 class InitTests(unittest.TestCase):
 
@@ -16,8 +17,12 @@ class InitTests(unittest.TestCase):
             createingestor("nonexistanttype",str(uuid.uuid4()))
 
     def test_wellsfargocsv(self):
-        ingestor = createingestor(InputType.WELLS_FARGO_CSV.name,os.path.dirname(__file__)+"/dummy.csv")
-        self.assertEqual(ingestor.__class__.__name__,"WellsFargoIngestor")
+        os.path.isfile = MagicMock()
+        os.path.isfile.return_value = True
+        mockopen = mock_open()
+        with patch(F"{WellsFargoIngestor.__module__}.open",mockopen):
+            ingestor = createingestor(InputType.WELLS_FARGO_CSV.name,os.path.dirname(__file__)+"/dummy.csv")
+            self.assertEqual(ingestor.__class__.__name__,"WellsFargoIngestor")
     
     def test_stdfmtjson(self):
         ingestor = createingestor(InputType.STANDARD_FORMAT_JSON.name,os.path.dirname(__file__)+"/dummy.csv")
