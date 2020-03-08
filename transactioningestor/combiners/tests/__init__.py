@@ -11,8 +11,8 @@ class IngestorTests(unittest.TestCase):
         combiner = createcombiner(OutputType.STANDARD_FORMAT_JSON.name,"producer")
         self.assertEquals(combiner.__class__.__name__,"PassThruCombiner")
 
-    def test_stdformatcombiner_filenotfound(self):
-        os.path.isfile = MagicMock()
-        os.path.isfile.return_value = False
+    @patch("os.path.isfile")
+    def test_stdformatcombiner_filenotfound(self,isFileMock):
+        isFileMock.return_value = False
         with self.assertRaises(Exception):
             StandardFormatJsonCombiner("producer","file")
